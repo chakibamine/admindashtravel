@@ -23,7 +23,6 @@ export default function App() {
           <Route path="rtl" element={<Home />} />
           <Route path="profile" element={<Profile />} />
           <Route path="Users" element={<Users />} />
-          <Route path="adduser" element={<AddUserForm />} />
         </Route>
       </Routes>
     </>
