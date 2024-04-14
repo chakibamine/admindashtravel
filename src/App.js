@@ -8,7 +8,10 @@ import Tables from "pages/Tables";
 import Billing from "pages/Billing";
 import Profile from "pages/Profile";
 import { Users } from "pages/user/Users";
-import { AddUserForm } from "pages/user/AddUserForm";
+import { Hotels } from "pages/hotel/Hotels";
+import { Test1 } from "pages/Test1";
+import { Destinations } from "pages/destination/Destinations";
+
 export default function App() {
   return (
     <>
@@ -23,7 +26,10 @@ export default function App() {
           <Route path="rtl" element={<Home />} />
           <Route path="profile" element={<Profile />} />
           <Route path="Users" element={<Users />} />
+          <Route path="Hotels" element={<Hotels />} />
+          <Route path="destination" element={<Destinations />} />
         </Route>
+          <Route path="/test" element={<Test1 />} />
       </Routes>
     </>
   );

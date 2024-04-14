@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { Menu } from "antd";
+import { HomeOutlined,CompassOutlined } from '@ant-design/icons';
 import { profileSVg, signInSvg, signUpSvg } from "./SignInUpData";
 export const dashboard = (color) => [
   <svg
@@ -75,6 +76,26 @@ export const items = (pathname, color) => [
       "Users",
       "/Users",
       profileSVg,
+      pathname,
+      color
+    ),
+  },
+  {
+    key: "9",
+    label: getItem(
+      "Hotels",
+      "/Hotels",
+      <HomeOutlined />,
+      pathname,
+      color
+    ),
+  },
+  {
+    key: "10",
+    label: getItem(
+      "Destination",
+      "/destination",
+      <CompassOutlined />,
       pathname,
       color
     ),

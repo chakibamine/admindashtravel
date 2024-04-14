@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Divider, Table, Checkbox, Button, Input } from 'antd';
 import { Link } from 'react-router-dom';
-import { AddUserForm } from './AddUserForm';
+import { AddUserForm } from '../../components/Forms/AddUserForm';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
+import './Users.css'
 
 const columns = [
     {
@@ -149,19 +150,16 @@ const data = [
 
 export const Users = () => {
     const [checkedList, setCheckedList] = useState(columns.map((item) => item.key));
+    const [search, setSearch] = useState('');
+    const [filterList, setFilterList] = useState(false)
 
     const options = columns.map(({ key, title }) => ({
         label: title,
         value: key,
     }));
-    const [filterList, setFilterList] = useState(false)
+
     const newColumns = columns.filter((item) => checkedList.includes(item.key));
-    
 
-
-
-    
-    const [search, setSearch] = useState('');
     const filteredData = data.filter((item) =>
     Object.values(item).some((value) =>
         String(value).toLowerCase().includes(search.toLowerCase())
@@ -186,6 +184,7 @@ export const Users = () => {
                 onChange={(value) => {
                     setCheckedList(value);
                 }}
+                className={`checkbox-group ${filterList ? 'checkbox-group-active' : ''}`}
                 />
             )}
             <AddUserForm />
