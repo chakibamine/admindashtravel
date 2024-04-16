@@ -9,9 +9,8 @@ export default function SideNav({ color }) {
   pathname = pathname.replace("/", "");
   return (
     <>
-      <div className="brand">
+      <div style={{marginLeft:"50px", width:"70px"}}>
         <img src={logo} alt="" />
-        <span>Antd Dashboard</span>
       </div>
       <hr />
       <MenuItem pathname={pathname} color={color} />

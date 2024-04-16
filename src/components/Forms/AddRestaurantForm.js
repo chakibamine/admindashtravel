@@ -7,7 +7,7 @@ const onFinish = (values) => {
 const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
 };
-export const AddDestinationForm = () => {
+export const AddRestaurantForm = () => {
 
     const { TextArea } = Input;
     const onFinish = (values) => {
@@ -36,9 +36,9 @@ export const AddDestinationForm = () => {
     const [size, setSize] = useState('middle');
     return (
         <>
-            <Button type='primary' style={{ float: 'right' }} onClick={() => setModal1Open(true)}><AppstoreAddOutlined />Add Destination</Button>
+            <Button type='primary' style={{ float: 'right' }} onClick={() => setModal1Open(true)}><AppstoreAddOutlined />Add Restaurant</Button>
             <Modal
-                title="Add Destination"
+                title="Add Restaurant"
                 style={{ top: 20 }}
                 visible={modal1Open}
                 onOk={() => setModal1Open(false)}
@@ -65,35 +65,43 @@ export const AddDestinationForm = () => {
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input Destination Name!',
+                                message: 'Please input Restaurant Name!',
                             },
                         ]}
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
-                        label="Location"
-                        name="Location"
+                        label="Cuisine"
+                        name="Cuisine"
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input Destination Location!',
+                                message: 'Please input Restaurant Cuisine!',
                             },
                         ]}
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
-                        label="Description"
-                        name="Description"
+                        label="Destination"
+                        name="Destination"
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input Destination Description!',
+                                message: 'Please input Restaurant Destination!',
                             },
                         ]}
                     >
-                        <TextArea rows={4} />
+                        <Select
+                            size={size}
+                            defaultValue="a1"
+                            onChange={handleChange}
+                            style={{
+                                width: '100%',
+                            }}
+                            options={options}
+                        />
                     </Form.Item>
                     <Form.Item
                         label="Rating"
@@ -101,16 +109,20 @@ export const AddDestinationForm = () => {
                         rules={[
                             {
                                 required: true,
-                                message: 'Please Rate Tihs Destination!',
+                                message: 'Please Rate Tihs Restaurant!',
                             },
                         ]}
                     >
                         <Rate allowHalf defaultValue={1} />
                     </Form.Item>
+
+
+
+
                     <Form.Item
                         label="Image"
-                        valuePropName="fileList"
                         name="image"
+                        valuePropName="fileList"
                         getValueFromEvent={normFile}>
                         <Upload action="/upload.do" listType="picture-card">
                             <button

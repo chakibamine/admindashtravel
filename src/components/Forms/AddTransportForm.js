@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
-import { Button, Checkbox, Form, Input, Upload, Radio, Modal, Rate, Select } from 'antd';
+import { Button, Form, Input, Modal, Select, Cascader, InputNumber, Space } from 'antd';
 import { PlusOutlined, AppstoreAddOutlined } from '@ant-design/icons';
+const { Option } = Select;
 const onFinish = (values) => {
     console.log('Success:', values);
 };
 const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
 };
-export const AddDestinationForm = () => {
+export const AddTransportForm = () => {
 
     const { TextArea } = Input;
     const onFinish = (values) => {
@@ -34,11 +35,35 @@ export const AddDestinationForm = () => {
         console.log(`Selected: ${value}`);
     };
     const [size, setSize] = useState('middle');
+    const selectAfter = (
+        <Select
+            defaultValue="USD"
+            style={{
+                width: 60,
+            }}
+        >
+            <Option value="USD">$</Option>
+            <Option value="EUR">€</Option>
+            <Option value="GBP">£</Option>
+            <Option value="CNY">¥</Option>
+        </Select>
+    );
+    const selectBefore = (
+        <Select
+            defaultValue="add"
+            style={{
+                width: 60,
+            }}
+        >
+            <Option value="add">+</Option>
+            <Option value="minus">-</Option>
+        </Select>
+    );
     return (
         <>
-            <Button type='primary' style={{ float: 'right' }} onClick={() => setModal1Open(true)}><AppstoreAddOutlined />Add Destination</Button>
+            <Button type='primary' style={{ float: 'right' }} onClick={() => setModal1Open(true)}><AppstoreAddOutlined />Add Transport</Button>
             <Modal
-                title="Add Destination"
+                title="Add Transport"
                 style={{ top: 20 }}
                 visible={modal1Open}
                 onOk={() => setModal1Open(false)}
@@ -60,79 +85,70 @@ export const AddDestinationForm = () => {
                     autoComplete="off"
                 >
                     <Form.Item
-                        label="Name"
-                        name="Name"
+                        label="Type"
+                        name="Type"
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input Destination Name!',
+                                message: 'Please input Transport Type!',
                             },
                         ]}
                     >
                         <Input />
                     </Form.Item>
                     <Form.Item
-                        label="Location"
-                        name="Location"
+                        label="Provider"
+                        name="Provider"
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input Destination Location!',
+                                message: 'Please input Transport Provider!',
                             },
                         ]}
                     >
                         <Input />
                     </Form.Item>
+
                     <Form.Item
-                        label="Description"
-                        name="Description"
+                        label="Destination"
+                        name="Destination"
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input Destination Description!',
+                                message: 'Please input Transport Destination!',
                             },
                         ]}
                     >
-                        <TextArea rows={4} />
+                        <Select
+                            size={size}
+                            defaultValue="a1"
+                            onChange={handleChange}
+                            style={{
+                                width: '100%',
+                            }}
+                            options={options}
+                        />
                     </Form.Item>
                     <Form.Item
-                        label="Rating"
-                        name="Rating"
+                        label="Price"
+                        name="Price"
                         rules={[
                             {
                                 required: true,
-                                message: 'Please Rate Tihs Destination!',
+                                message: 'Please input Transport Price!',
                             },
                         ]}
                     >
-                        <Rate allowHalf defaultValue={1} />
-                    </Form.Item>
-                    <Form.Item
-                        label="Image"
-                        valuePropName="fileList"
-                        name="image"
-                        getValueFromEvent={normFile}>
-                        <Upload action="/upload.do" listType="picture-card">
-                            <button
-                                style={{
-                                    border: 0,
-                                    background: 'none',
-                                }}
-                                type="button"
-                            >
-                                <PlusOutlined />
-                                <div
-                                    style={{
-                                        marginTop: 8,
-                                    }}
-                                >
-                                    Upload
-                                </div>
-                            </button>
-                        </Upload>
+                        <InputNumber
+                            addonBefore={selectBefore}
+                            addonAfter={selectAfter}
+                            defaultValue={100}
+                            style={{
+                                width: '100%',
+                            }}
+                        />
                     </Form.Item>
                 </Form>
-
             </Modal>
         </>
     )

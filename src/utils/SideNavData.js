@@ -2,6 +2,9 @@ import { NavLink } from "react-router-dom";
 import { Menu } from "antd";
 import { HomeOutlined,CompassOutlined } from '@ant-design/icons';
 import { profileSVg, signInSvg, signUpSvg } from "./SignInUpData";
+import { IoMdRestaurant } from "react-icons/io";
+import { FaHotel,FaLocationDot,FaTaxi } from "react-icons/fa6";
+import { BsCalendarEventFill } from "react-icons/bs";
 export const dashboard = (color) => [
   <svg
     width="20"
@@ -85,7 +88,7 @@ export const items = (pathname, color) => [
     label: getItem(
       "Hotels",
       "/Hotels",
-      <HomeOutlined />,
+      <FaHotel />,
       pathname,
       color
     ),
@@ -95,7 +98,37 @@ export const items = (pathname, color) => [
     label: getItem(
       "Destination",
       "/destination",
-      <CompassOutlined />,
+      <FaLocationDot />,
+      pathname,
+      color
+    ),
+  },
+  {
+    key: "11",
+    label: getItem(
+      "Restaurent",
+      "/restaurent",
+      <IoMdRestaurant />,
+      pathname,
+      color
+    ),
+  },
+  {
+    key: "12",
+    label: getItem(
+      "Transport",
+      "/transport",
+      <FaTaxi />,
+      pathname,
+      color
+    ),
+  },
+  {
+    key: "13",
+    label: getItem(
+      "Event",
+      "/event",
+      <BsCalendarEventFill />,
       pathname,
       color
     ),

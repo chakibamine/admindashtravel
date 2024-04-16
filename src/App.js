@@ -11,6 +11,9 @@ import { Users } from "pages/user/Users";
 import { Hotels } from "pages/hotel/Hotels";
 import { Test1 } from "pages/Test1";
 import { Destinations } from "pages/destination/Destinations";
+import { Restaurants } from "pages/restaurent/Restaurants";
+import { Transports } from "pages/transport/Transports";
+import { Events } from "pages/event/Events";
 
 export default function App() {
   return (
@@ -28,6 +31,9 @@ export default function App() {
           <Route path="Users" element={<Users />} />
           <Route path="Hotels" element={<Hotels />} />
           <Route path="destination" element={<Destinations />} />
+          <Route path="restaurent" element={<Restaurants />} />
+          <Route path="transport" element={<Transports />} />
+          <Route path="event" element={<Events />} />
         </Route>
           <Route path="/test" element={<Test1 />} />
       </Routes>

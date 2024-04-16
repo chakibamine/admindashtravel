@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Checkbox, Form, Input, Upload, Radio, Modal } from 'antd';
-import { PlusOutlined,UserAddOutlined } from '@ant-design/icons';
+import { PlusOutlined, UserAddOutlined } from '@ant-design/icons';
 const onFinish = (values) => {
     console.log('Success:', values);
 };
@@ -26,7 +26,7 @@ export const AddUserForm = () => {
 
     return (
         <>
-            <Button type='primary' style={{ float: 'right'}} onClick={() => setModal1Open(true)}><UserAddOutlined />Add User</Button>
+            <Button type='primary' style={{ float: 'right' }} onClick={() => setModal1Open(true)}><UserAddOutlined />Add User</Button>
             <Modal
                 title="Add User"
                 style={{ top: 20 }}
@@ -124,7 +124,11 @@ export const AddUserForm = () => {
                             <Radio value="female"> Female </Radio>
                         </Radio.Group>
                     </Form.Item>
-                    <Form.Item label="Image" valuePropName="fileList" getValueFromEvent={normFile}>
+                    <Form.Item
+                        label="Image"
+                        valuePropName="fileList"
+                        name="image"
+                        getValueFromEvent={normFile}>
                         <Upload action="/upload.do" listType="picture-card">
                             <button
                                 style={{
@@ -145,7 +149,6 @@ export const AddUserForm = () => {
                         </Upload>
                     </Form.Item>
                 </Form>
-
             </Modal>
         </>
     )

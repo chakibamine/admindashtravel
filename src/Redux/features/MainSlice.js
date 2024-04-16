@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   visible: false,
   placement: "right",
-  sideNavColor: "#1890ff",
+  sideNavColor: "#26baeb",
   sideNavType: "transparent",
   navFixed: false,
   openSidebar: false,

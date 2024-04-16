@@ -110,7 +110,7 @@ export const AddHotelForm = () => {
                             defaultValue="a1"
                             onChange={handleChange}
                             style={{
-                                width: 200,
+                                width: '100%',
                             }}
                             options={options}
                         />
@@ -131,7 +131,11 @@ export const AddHotelForm = () => {
 
 
 
-                    <Form.Item label="Image" valuePropName="fileList" getValueFromEvent={normFile}>
+                    <Form.Item
+                        label="Image"
+                        name="image"
+                        valuePropName="fileList"
+                        getValueFromEvent={normFile}>
                         <Upload action="/upload.do" listType="picture-card">
                             <button
                                 style={{

@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
-import { Button, Checkbox, Form, Input, Upload, Radio, Modal, Rate, Select } from 'antd';
+import { Button, Form, Input, Modal, Select, Cascader, InputNumber, Space, DatePicker } from 'antd';
 import { PlusOutlined, AppstoreAddOutlined } from '@ant-design/icons';
+const { Option } = Select;
+const { RangePicker } = DatePicker;
 const onFinish = (values) => {
     console.log('Success:', values);
 };
 const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
 };
-export const AddDestinationForm = () => {
+export const AddEventForm = () => {
 
     const { TextArea } = Input;
     const onFinish = (values) => {
@@ -36,9 +38,9 @@ export const AddDestinationForm = () => {
     const [size, setSize] = useState('middle');
     return (
         <>
-            <Button type='primary' style={{ float: 'right' }} onClick={() => setModal1Open(true)}><AppstoreAddOutlined />Add Destination</Button>
+            <Button type='primary' style={{ float: 'right' }} onClick={() => setModal1Open(true)}><AppstoreAddOutlined />Add Event</Button>
             <Modal
-                title="Add Destination"
+                title="Add Event"
                 style={{ top: 20 }}
                 visible={modal1Open}
                 onOk={() => setModal1Open(false)}
@@ -65,19 +67,7 @@ export const AddDestinationForm = () => {
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input Destination Name!',
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item
-                        label="Location"
-                        name="Location"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input Destination Location!',
+                                message: 'Please input Event Name!',
                             },
                         ]}
                     >
@@ -89,50 +79,61 @@ export const AddDestinationForm = () => {
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input Destination Description!',
+                                message: 'Please input Event Description!',
                             },
                         ]}
                     >
                         <TextArea rows={4} />
                     </Form.Item>
                     <Form.Item
-                        label="Rating"
-                        name="Rating"
+                        label="Location"
+                        name="Location"
                         rules={[
                             {
                                 required: true,
-                                message: 'Please Rate Tihs Destination!',
+                                message: 'Please input Event Location!',
                             },
                         ]}
                     >
-                        <Rate allowHalf defaultValue={1} />
+                        <Input />
                     </Form.Item>
                     <Form.Item
-                        label="Image"
-                        valuePropName="fileList"
-                        name="image"
-                        getValueFromEvent={normFile}>
-                        <Upload action="/upload.do" listType="picture-card">
-                            <button
-                                style={{
-                                    border: 0,
-                                    background: 'none',
-                                }}
-                                type="button"
-                            >
-                                <PlusOutlined />
-                                <div
-                                    style={{
-                                        marginTop: 8,
-                                    }}
-                                >
-                                    Upload
-                                </div>
-                            </button>
-                        </Upload>
+                        label="Destination"
+                        name="Destination"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input Transport Destination!',
+                            },
+                        ]}
+                    >
+                        <Select
+                            size={size}
+                            defaultValue="a1"
+                            onChange={handleChange}
+                            style={{
+                                width: '100%',
+                            }}
+                            options={options}
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        label="Date"
+                        name="Date"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input Event Date!',
+                            },
+                        ]}
+                    >
+                        <RangePicker
+                            style={{
+                                width: '100%',
+                            }}
+                        />
                     </Form.Item>
                 </Form>
-
             </Modal>
         </>
     )
