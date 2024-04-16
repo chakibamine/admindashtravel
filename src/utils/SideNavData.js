@@ -3,8 +3,10 @@ import { Menu } from "antd";
 import { HomeOutlined,CompassOutlined } from '@ant-design/icons';
 import { profileSVg, signInSvg, signUpSvg } from "./SignInUpData";
 import { IoMdRestaurant } from "react-icons/io";
-import { FaHotel,FaLocationDot,FaTaxi } from "react-icons/fa6";
+import { FaHotel,FaLocationDot,FaTaxi,FaRegStarHalfStroke } from "react-icons/fa6";
+import { BiSolidOffer } from "react-icons/bi";
 import { BsCalendarEventFill } from "react-icons/bs";
+import { FaSearchLocation } from "react-icons/fa";
 export const dashboard = (color) => [
   <svg
     width="20"
@@ -129,6 +131,36 @@ export const items = (pathname, color) => [
       "Event",
       "/event",
       <BsCalendarEventFill />,
+      pathname,
+      color
+    ),
+  },
+  {
+    key: "14",
+    label: getItem(
+      "Attraction",
+      "/attraction",
+      <FaSearchLocation />,
+      pathname,
+      color
+    ),
+  },
+  {
+    key: "15",
+    label: getItem(
+      "Reviews",
+      "/event",
+      <FaRegStarHalfStroke />,
+      pathname,
+      color
+    ),
+  },
+  {
+    key: "16",
+    label: getItem(
+      "Offer",
+      "/event",
+      <BiSolidOffer />,
       pathname,
       color
     ),

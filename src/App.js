@@ -14,6 +14,7 @@ import { Destinations } from "pages/destination/Destinations";
 import { Restaurants } from "pages/restaurent/Restaurants";
 import { Transports } from "pages/transport/Transports";
 import { Events } from "pages/event/Events";
+import { Attractions } from "pages/attraction/Attractions";
 
 export default function App() {
   return (
@@ -34,6 +35,7 @@ export default function App() {
           <Route path="restaurent" element={<Restaurants />} />
           <Route path="transport" element={<Transports />} />
           <Route path="event" element={<Events />} />
+          <Route path="attraction" element={<Attractions />} />
         </Route>
           <Route path="/test" element={<Test1 />} />
       </Routes>
