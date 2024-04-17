@@ -1,40 +1,18 @@
 import React, { useState } from 'react'
-import { Button, Form, Input, Modal, Select, Cascader, InputNumber, Space } from 'antd';
-import { PlusOutlined, AppstoreAddOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Modal, Select, InputNumber } from 'antd';
+import { AppstoreAddOutlined } from '@ant-design/icons';
+import { Formitem } from 'components/Form_items/Inputs';
+import { Select_destination } from 'components/Form_items/Inputs';
 const { Option } = Select;
-const onFinish = (values) => {
-    console.log('Success:', values);
-};
-const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-};
 export const AddTransportForm = () => {
-
-    const { TextArea } = Input;
     const onFinish = (values) => {
         console.log('Success:', values);
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-    const normFile = (e) => {
-        if (Array.isArray(e)) {
-            return e;
-        }
-        return e?.fileList;
-    };
+
     const [modal1Open, setModal1Open] = useState(false);
-    const options = [];
-    for (let i = 10; i < 36; i++) {
-        options.push({
-            value: i.toString(36) + i,
-            label: i.toString(36) + i,
-        });
-    }
-    const handleChange = (value) => {
-        console.log(`Selected: ${value}`);
-    };
-    const [size, setSize] = useState('middle');
     const selectAfter = (
         <Select
             defaultValue="USD"
@@ -84,70 +62,10 @@ export const AddTransportForm = () => {
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
-                    <Form.Item
-                        label="Type"
-                        name="Type"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input Transport Type!',
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item
-                        label="Provider"
-                        name="Provider"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input Transport Provider!',
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Destination"
-                        name="Destination"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input Transport Destination!',
-                            },
-                        ]}
-                    >
-                        <Select
-                            size={size}
-                            defaultValue="a1"
-                            onChange={handleChange}
-                            style={{
-                                width: '100%',
-                            }}
-                            options={options}
-                        />
-                    </Form.Item>
-                    <Form.Item
-                        label="Price"
-                        name="Price"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input Transport Price!',
-                            },
-                        ]}
-                    >
-                        <InputNumber
-                            addonBefore={selectBefore}
-                            addonAfter={selectAfter}
-                            defaultValue={100}
-                            style={{
-                                width: '100%',
-                            }}
-                        />
-                    </Form.Item>
+                    <Formitem label="Type" name="type" required="true" message="Please input Transport Type!" input={<Input />} />
+                    <Formitem label="Provider" name="provider" required="true" message="Please input Transport Provider!" input={<Input />} />
+                    <Select_destination label="Destination" name="destination" required="true" message="Please input Transport Destination!" />
+                    <Formitem label="Price" name="price" required="true" message="Please input Transport Price!" input={<InputNumber addonBefore={selectBefore} addonAfter={selectAfter} defaultValue={100} style={{ width: '100%', }} />} />
                 </Form>
             </Modal>
         </>

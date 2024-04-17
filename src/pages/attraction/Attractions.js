@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Table, Checkbox, Button, Input, Rate } from 'antd';
+import { Table, Checkbox, Button, Input, Rate, Modal } from 'antd';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
 import './Attractions.css'
 import { AddAttractionForm } from 'components/Forms/AddAttractionForm';
-
+import { useNavigate } from 'react-router-dom';
+import { Confirmation_delete } from 'assets/modal/Confirmation_delete';
 const columns = [
   {
     title: 'Name',
@@ -14,7 +15,7 @@ const columns = [
     title: 'Description',
     dataIndex: 'Description',
     key: '2',
-    render: (text) => <span>{text.slice(0, 10)}{text.length > 25 ? "..." : ""}</span>,
+    render: (text) => <span>{text.slice(0, 25)}{text.length > 25 ? "..." : ""}</span>,
   },
   {
     title: 'Reviews',
@@ -25,6 +26,12 @@ const columns = [
     title: 'Action',
     dataIndex: 'Action',
     key: '7',
+    render: (text, record) => (
+      <span>
+        <Button type="primary" onClick={(e) => handleUpdate(e, record)}>Update</Button>
+        <Confirmation_delete  id={record.id}/>
+      </span>
+    ),
   },
 ];
 
@@ -101,17 +108,28 @@ const data = [{
   "Price": 1.6
 },]
 
+const handleUpdate = (e, record) => {
+  // Implement update logic here
+  e.stopPropagation();
+  console.log("Update:", record);
+};
+
 
 export const Attractions = () => {
+
+
   const [checkedList, setCheckedList] = useState(columns.map((item) => item.key));
+
   const [search, setSearch] = useState('');
   const [filterList, setFilterList] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedRowData, setSelectedRowData] = useState(null);
 
   const options = columns.map(({ key, title }) => ({
     label: title,
     value: key,
   }));
-
+  const navigate = useNavigate();
   const newColumns = columns.filter((item) => checkedList.includes(item.key));
 
   const filteredData = data.filter((item) =>
@@ -120,7 +138,11 @@ export const Attractions = () => {
     )
   );
 
-
+  const handleRowClick = (record) => {
+    // Perform actions on row click, for example, navigate to details page
+    setSelectedRowData(record);
+    setModalVisible(true);
+  };
   return (
     <>
       <Button
@@ -150,7 +172,28 @@ export const Attractions = () => {
         style={{
           marginTop: 24,
         }}
+        onRow={(record) => ({
+          onClick: () => handleRowClick(record),
+        })}
       />
+
+      {/* Modal */}
+      <Modal
+        title="Details"
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        footer={null}
+      >
+        {/* Display modal content based on the selectedRowData */}
+        {selectedRowData && (
+          <div>
+            <p>Name: {selectedRowData.Name}</p>
+            <p>Description: {selectedRowData.Description}</p>
+            <p>Reviews: {selectedRowData.Reviews}</p>
+            {/* Add more data fields as needed */}
+          </div>
+        )}
+      </Modal>
     </>
   );
 };
