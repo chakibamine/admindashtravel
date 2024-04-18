@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
-import { Table, Checkbox, Button, Input, Rate, Modal } from 'antd';
-import { MenuUnfoldOutlined } from '@ant-design/icons';
-import './Attractions.css'
+import React from 'react';
 import { AddAttractionForm } from 'components/Forms/AddAttractionForm';
-import { useNavigate } from 'react-router-dom';
 import { Confirmation_delete } from 'assets/modal/Confirmation_delete';
+import { Page } from 'components/Page/Page';
 const columns = [
   {
     title: 'Name',
@@ -28,8 +25,7 @@ const columns = [
     key: '7',
     render: (text, record) => (
       <span>
-        <Button type="primary" onClick={(e) => handleUpdate(e, record)}>Update</Button>
-        <Confirmation_delete  id={record.id}/>
+        <Confirmation_delete id={record.id} />
       </span>
     ),
   },
@@ -108,92 +104,11 @@ const data = [{
   "Price": 1.6
 },]
 
-const handleUpdate = (e, record) => {
-  // Implement update logic here
-  e.stopPropagation();
-  console.log("Update:", record);
-};
-
 
 export const Attractions = () => {
-
-
-  const [checkedList, setCheckedList] = useState(columns.map((item) => item.key));
-
-  const [search, setSearch] = useState('');
-  const [filterList, setFilterList] = useState(false)
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedRowData, setSelectedRowData] = useState(null);
-
-  const options = columns.map(({ key, title }) => ({
-    label: title,
-    value: key,
-  }));
-  const navigate = useNavigate();
-  const newColumns = columns.filter((item) => checkedList.includes(item.key));
-
-  const filteredData = data.filter((item) =>
-    Object.values(item).some((value) =>
-      String(value).toLowerCase().includes(search.toLowerCase())
-    )
-  );
-
-  const handleRowClick = (record) => {
-    // Perform actions on row click, for example, navigate to details page
-    setSelectedRowData(record);
-    setModalVisible(true);
-  };
   return (
     <>
-      <Button
-        onClick={() => setFilterList(!filterList)}
-        style={{ marginRight: "10px" }}
-        type={filterList ? 'primary' : 'default'}
-      >
-        <MenuUnfoldOutlined /> Filter
-      </Button>
-
-      {filterList && (
-        <Checkbox.Group
-          value={checkedList}
-          options={options}
-          onChange={(value) => {
-            setCheckedList(value);
-          }}
-          className={`checkbox-group ${filterList ? 'checkbox-group-active' : ''}`}
-        />
-      )}
-      <AddAttractionForm />
-      <Input style={{ float: 'right', width: "150px", marginRight: "10px" }} placeholder='Search in Table' onChange={(e) => setSearch(e.target.value)} />
-
-      <Table
-        columns={newColumns}
-        dataSource={filteredData}
-        style={{
-          marginTop: 24,
-        }}
-        onRow={(record) => ({
-          onClick: () => handleRowClick(record),
-        })}
-      />
-
-      {/* Modal */}
-      <Modal
-        title="Details"
-        visible={modalVisible}
-        onCancel={() => setModalVisible(false)}
-        footer={null}
-      >
-        {/* Display modal content based on the selectedRowData */}
-        {selectedRowData && (
-          <div>
-            <p>Name: {selectedRowData.Name}</p>
-            <p>Description: {selectedRowData.Description}</p>
-            <p>Reviews: {selectedRowData.Reviews}</p>
-            {/* Add more data fields as needed */}
-          </div>
-        )}
-      </Modal>
+      <Page form={<AddAttractionForm />} columns={columns} data={data} />
     </>
   );
 };

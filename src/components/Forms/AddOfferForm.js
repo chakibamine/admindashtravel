@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { Button, Form, Input, Modal, Rate, } from 'antd';
+import { Button, Form, Input, Modal, DatePicker } from 'antd';
 import { AppstoreAddOutlined } from '@ant-design/icons';
-import { Formitem, Select_destination, Image_Input } from 'components/Form_items/Inputs';
-
-export const AddRestaurantForm = () => {
+import { Formitem } from 'components/Form_items/Inputs';
+import { Select_destination } from 'components/Form_items/Inputs';
+import { Price_Input } from 'components/Form_items/Inputs';
+const { TextArea } = Input;
+export const AddOfferForm = () => {
     const onFinish = (values) => {
         console.log('Success:', values);
     };
@@ -13,9 +15,9 @@ export const AddRestaurantForm = () => {
     const [modal1Open, setModal1Open] = useState(false);
     return (
         <>
-            <Button type='primary' style={{ float: 'right' }} onClick={() => setModal1Open(true)}><AppstoreAddOutlined />Add Restaurant</Button>
+            <Button type='primary' style={{ float: 'right' }} onClick={() => setModal1Open(true)}><AppstoreAddOutlined />Add Offer</Button>
             <Modal
-                title="Add Restaurant"
+                title="Add Offer"
                 style={{ top: 20 }}
                 visible={modal1Open}
                 onOk={() => setModal1Open(false)}
@@ -36,13 +38,11 @@ export const AddRestaurantForm = () => {
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
-                    <Formitem label="Name" name="name" required="true" message="Please input Restaurant Name!" input={<Input />} />
-                    <Formitem label="Cuisine" name="cuisine" required="true" message="Please input Restaurant Cuisine!" input={<Input />} />
-                    <Select_destination label="Destination" name="destination" required="true" message="Please input Restaurant Destination!" />
-                    <Formitem label="Rating" name="rating" required="true" message="Please input Restaurant Rating!" input={<Rate allowHalf defaultValue={1} />} />
-                    <Image_Input />
+                    <Formitem label="Description" name="Description" required="true" message="Please input Offer Description!" input={<TextArea rows={4} />} />
+                    <Price_Input label="Price" name="price" required="true" message="Please input Offer Price!"/>
+                    <Formitem label="DateValidity" name="DateValidity" required="true" message="Please input Offer DateValidity!" input={<DatePicker style={{width:"100%"}} />} />
+                    <Select_destination label="Destination" name="destination" required="true" message="Please input Offer Destination!"/>
                 </Form>
-
             </Modal>
         </>
     )

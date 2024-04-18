@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import { Divider, Table, Checkbox, Button, Input } from 'antd';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import { AddUserForm } from '../../components/Forms/AddUserForm';
-import { MenuUnfoldOutlined } from '@ant-design/icons';
-import './Users.css'
+import { Page } from 'components/Page/Page';
+import { Confirmation_delete } from 'assets/modal/Confirmation_delete';
 
 const columns = [
     {
@@ -40,6 +38,11 @@ const columns = [
         title: 'Action',
         dataIndex: 'Action',
         key: '7',
+        render: (text, record) => (
+          <span>
+            <Confirmation_delete id={record.id} />
+          </span>
+        ),
     },
 ];
 
@@ -149,55 +152,9 @@ const data = [
 ];
 
 export const Users = () => {
-    const [checkedList, setCheckedList] = useState(columns.map((item) => item.key));
-    const [search, setSearch] = useState('');
-    const [filterList, setFilterList] = useState(false)
-
-    const options = columns.map(({ key, title }) => ({
-        label: title,
-        value: key,
-    }));
-
-    const newColumns = columns.filter((item) => checkedList.includes(item.key));
-
-    const filteredData = data.filter((item) =>
-    Object.values(item).some((value) =>
-        String(value).toLowerCase().includes(search.toLowerCase())
-    )
-);
-
-
     return (
         <>
-            <Button
-                onClick={() => setFilterList(!filterList)}
-                style={{ marginRight:"10px" }}
-                type={filterList ? 'primary' : 'default'}
-            >
-                <MenuUnfoldOutlined /> Filter
-            </Button>
-
-            {filterList && (
-                <Checkbox.Group
-                value={checkedList}
-                options={options}
-                onChange={(value) => {
-                    setCheckedList(value);
-                }}
-                className={`checkbox-group ${filterList ? 'checkbox-group-active' : ''}`}
-                />
-            )}
-            <AddUserForm />
-            <Input style={{ float: 'right', width:"150px", marginRight:"10px"}} placeholder='Search in Table' onChange={(e)=> setSearch(e.target.value)} />
-
-            <Table
-                columns={newColumns}
-                dataSource={filteredData}
-                style={{
-                    marginTop: 24,
-                }}
-            />
-
+        <Page form={<AddUserForm />} columns={columns} data={data}/>
         </>
     );
 };

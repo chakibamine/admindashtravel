@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { Button, Checkbox, Form, Input, Upload, Radio, Modal, Rate, Select } from 'antd';
+import { Form, Upload, Select, InputNumber } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
 
 
 
-export const Select_destination = ({ label, name, required, message}) => {
+export const Select_destination = ({ label, name, required, message }) => {
     const [size, setSize] = useState('middle');
     const [selectedOption, setSelectedOption] = useState('a10');
     const handleChange = (value) => {
@@ -93,6 +93,57 @@ export const Image_Input = () => {
                         </div>
                     </button>
                 </Upload>
+            </Form.Item>
+        </>
+    )
+}
+
+export const Price_Input = ({ label, name, required, message }) => {
+    const { Option } = Select;
+    const selectAfter = (
+        <Select
+            defaultValue="USD"
+            style={{
+                width: 60,
+            }}
+        >
+            <Option value="USD">$</Option>
+            <Option value="EUR">€</Option>
+            <Option value="GBP">£</Option>
+            <Option value="CNY">¥</Option>
+        </Select>
+    );
+    const selectBefore = (
+        <Select
+            defaultValue="add"
+            style={{
+                width: 60,
+            }}
+        >
+            <Option value="add">+</Option>
+            <Option value="minus">-</Option>
+        </Select>
+    );
+    return (
+        <>
+            <Form.Item
+                label={label}
+                name={name}
+                rules={[
+                    {
+                        required: { required },
+                        message: { message },
+                    },
+                ]}
+            >
+                <InputNumber
+                    addonBefore={selectBefore}
+                    addonAfter={selectAfter}
+                    defaultValue={100}
+                    style={{
+                        width: '100%'
+                    }}
+                />
             </Form.Item>
         </>
     )

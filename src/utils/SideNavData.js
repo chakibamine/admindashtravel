@@ -149,7 +149,7 @@ export const items = (pathname, color) => [
     key: "15",
     label: getItem(
       "Reviews",
-      "/event",
+      "/review",
       <FaRegStarHalfStroke />,
       pathname,
       color
@@ -159,7 +159,7 @@ export const items = (pathname, color) => [
     key: "16",
     label: getItem(
       "Offer",
-      "/event",
+      "/offer",
       <BiSolidOffer />,
       pathname,
       color
