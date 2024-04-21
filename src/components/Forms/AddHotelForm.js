@@ -2,10 +2,17 @@ import React, { useState } from 'react'
 import { Button, Form, Input, Modal, Rate } from 'antd';
 import { AppstoreAddOutlined } from '@ant-design/icons';
 import { Formitem, Select_destination, Image_Input } from 'components/Form_items/Inputs';
+import { useDispatch } from 'react-redux';
+import { client } from 'utils/axios';
 const { TextArea } = Input;
 export const AddHotelForm = () => {
-    const onFinish = (values) => {
+
+    const dispatch = useDispatch()
+    const onFinish = async (values) => {
         console.log('Success:', values);
+        await client.post("hotels/create/", values).then(res => {
+            dispatch({ type: "ADD_HOTELS", payload: res.data }); setModal1Open(false)
+        })
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -40,6 +47,7 @@ export const AddHotelForm = () => {
                     <Formitem label="Location" name="location" required="true" message="Please input hotel Location!" input={<Input />} />
                     <Formitem label="Description" name="description" required="true" message="Please input hotel Description!" input={<TextArea rows={4} />} />
                     <Select_destination label="Destination" name="destination" required="true" message="Please input hotel Destination!" />
+                    <Formitem label="Pricing" name="pricing" required="true" message="Please input hotel Pricing!" input={<Input />} />
                     <Formitem label="Rating" name="rating" required="true" message="Please Rate Tihs hotel!" input={<Rate allowHalf defaultValue={1} />} />
                     <Image_Input />
                 </Form>

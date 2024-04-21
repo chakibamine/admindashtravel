@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Rate } from 'antd';
 import { AddRestaurantForm } from 'components/Forms/AddRestaurantForm';
 import { Page } from 'components/Page/Page';
-import { Confirmation_delete } from 'assets/modal/Confirmation_delete';
+
 
 const columns = [
   {
@@ -33,7 +33,7 @@ const columns = [
     key: '7',
     render: (text, record) => (
       <span>
-        <Confirmation_delete id={record.id} />
+        {/* <Confirmation_delete id={record.id} /> */}
       </span>
     ),
   },

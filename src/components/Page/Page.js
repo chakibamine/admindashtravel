@@ -15,11 +15,11 @@ export const Page = ({ form, columns, data }) => {
 
     const newColumns = columns.filter((item) => checkedList.includes(item.key));
 
-    const filteredData = data.filter((item) =>
+    const filteredData = data.filter((item, index) =>
         Object.values(item).some((value) =>
             String(value).toLowerCase().includes(search.toLowerCase())
         )
-    );
+    ).map((item, index) => ({ ...item, key: index }));
     return (
         <>
 
@@ -44,6 +44,7 @@ export const Page = ({ form, columns, data }) => {
             {form}
             <Input style={{ float: 'right', width: "150px", marginRight: "10px" }} placeholder='Search in Table' onChange={(e) => setSearch(e.target.value)} />
             <Table
+
                 columns={newColumns}
                 dataSource={filteredData}
                 style={{

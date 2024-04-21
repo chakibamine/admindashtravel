@@ -2,14 +2,23 @@ import React, { useState } from 'react'
 import { Button, Form, Input, Radio, Modal } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
 import { Formitem, Image_Input } from 'components/Form_items/Inputs';
+import { client } from 'utils/axios';
+import { useDispatch } from 'react-redux';
 export const AddUserForm = () => {
-    const onFinish = (values) => {
+    const [modal1Open, setModal1Open] = useState(false);
+
+    const dispatch = useDispatch()
+    const onFinish = async (values) => {
         console.log('Success:', values);
+
+        await client.post("register/", values).then(res => {
+            dispatch({ type: "ADD_USER", payload: res.data }); setModal1Open(false)
+        }
+        )
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-    const [modal1Open, setModal1Open] = useState(false);
     return (
         <>
             <Button type='primary' style={{ float: 'right' }} onClick={() => setModal1Open(true)}><UserAddOutlined />Add User</Button>
@@ -43,8 +52,8 @@ export const AddUserForm = () => {
                     <Formitem label="Gender" name="gender" required="true" message="Please choose your gender!"
                         input={
                             <Radio.Group>
-                                <Radio value="male"> Male </Radio>
-                                <Radio value="female"> Female </Radio>
+                                <Radio value="M"> Male </Radio>
+                                <Radio value="F"> Female </Radio>
                             </Radio.Group>
                         }
                     />

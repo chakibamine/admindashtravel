@@ -1,30 +1,44 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Button, Modal, Space } from 'antd';
+import { useDispatch } from 'react-redux';
+import { client } from 'utils/axios';
+import { MdDelete } from "react-icons/md";
+export const Confirmation_delete = ({ id, path }) => {
+  let red = '';
+  switch (path) {
+    case '' : red = 'DELETE_USER'; break;
+    case 'destinations/' : red = 'DELETE_DESTINATIONS'; break;
+    case 'hotels/' : red = 'DELETE_HOTELS'; break;
+    default: red = '';
+  }
+  const dispatch = useDispatch();
+  const [modalVisible, setModalVisible] = useState(false);
 
-export const Confirmation_delete = ({ id }) => {
-  const [modal, contextHolder] = Modal.useModal();
+  const handleDelete = async () => {
+    // Implement delete logic here
+    await client.delete(`${path}${id}/`).then(res => {
+      dispatch({ type: red, payload: id }); 
+    });
+    setModalVisible(false); 
+  };
+
   const confirm = () => {
-    modal.confirm({
-      title: 'Confirm',
+    Modal.confirm({
+      title: 'Confirm Delete',
       icon: <ExclamationCircleOutlined />,
-      content: `${id}`,
-      okText: 'delete',
-      cancelText: 'cancel',
+      content: `Are you sure you want to delete?`,
+      okText: 'Yes',
+      cancelText: 'No',
+      onOk: () => handleDelete(),
     });
   };
-  const handleDelete = (e, id) => {
-    // Implement delete logic here
-    e.stopPropagation();
-    console.log("Delete:", id);
-  };
+
   return (
     <>
       <Space>
-        <Button type='danger' onClick={(e) => { handleDelete(e, id); confirm() }}>delete</Button>
-
+        <MdDelete style={{color:'red',fontSize:"20"}} onClick={confirm}>Delete</MdDelete>
       </Space>
-      {contextHolder}
     </>
   );
-}
+};

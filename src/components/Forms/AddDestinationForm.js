@@ -3,11 +3,17 @@ import { Button, Form, Input, Modal, Rate } from 'antd';
 import { AppstoreAddOutlined } from '@ant-design/icons';
 import { Formitem } from 'components/Form_items/Inputs';
 import { Image_Input } from 'components/Form_items/Inputs';
+import { useDispatch } from 'react-redux';
+import { client } from 'utils/axios';
 export const AddDestinationForm = () => {
 
     const { TextArea } = Input;
-    const onFinish = (values) => {
+    const dispatch = useDispatch()
+    const onFinish = async (values) => {
         console.log('Success:', values);
+        await client.post("destinations/create/", values).then(res => {
+            dispatch({ type: "ADD_DESTINATIONS", payload: res.data }); setModal1Open(false)
+        })
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);

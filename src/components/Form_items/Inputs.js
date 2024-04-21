@@ -1,47 +1,61 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, Upload, Select, InputNumber } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { client } from 'utils/axios';
 
 export const Select_destination = ({ label, name, required, message }) => {
+    const dispatch = useDispatch();
+    const { destinations } = useSelector(state => state.destination);
     const [size, setSize] = useState('middle');
-    const [selectedOption, setSelectedOption] = useState('a10');
-    const handleChange = (value) => {
-        console.log(`Selected: ${value}`);
-        setSelectedOption(value);
-    };
-    const options = [];
-    for (let i = 10; i < 36; i++) {
-        options.push({
-            value: i.toString(36) + i,
-            label: i.toString(36) + i,
+  
+    useEffect(() => {
+      // Fetch destinations from API when component mounts
+      client.get("destinations/")
+        .then(res => {
+          dispatch({ type: "FETCH_DESTINATIONS", payload: res.data });
+        })
+        .catch(error => {
+          console.error("Error fetching destinations: ", error);
+          // Handle error here
         });
-    }
+    }, []);
+  
+    const defaultValue = destinations.length > 0 ? destinations[0].id : undefined;
+  
+    const handleChange = (value) => {
+      console.log(`Selected: ${value}`);
+    };
+  
     return (
-        <Form.Item
-            label={label}
-            name={name}
-            rules={[
-                {
-                    required: { required },
-                    message: { message },
-                },
-            ]}
+      <Form.Item
+        label={label}
+        name={name}
+        rules={[
+          {
+            required: required,
+            message: message,
+          },
+        ]}
+      >
+        <Select
+          size={size}
+          defaultValue={defaultValue}
+          onChange={handleChange}
+          style={{
+            width: '100%',
+          }}
         >
-            <Select
-                size={size}
-                value={selectedOption}
-                onChange={handleChange}
-                style={{
-                    width: '100%',
-                }}
-                options={options}
-            />
-        </Form.Item>
+          {destinations.map(destination => (
+            <Select.Option key={destination.id} value={destination.id}>
+              {destination.name}
+            </Select.Option>
+          ))}
+        </Select>
+      </Form.Item>
     );
-};
+  };
+
 export const Formitem = ({ label, name, required, message, input }) => {
     return (
         <>

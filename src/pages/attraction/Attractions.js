@@ -1,6 +1,6 @@
 import React from 'react';
 import { AddAttractionForm } from 'components/Forms/AddAttractionForm';
-import { Confirmation_delete } from 'assets/modal/Confirmation_delete';
+
 import { Page } from 'components/Page/Page';
 const columns = [
   {
@@ -25,7 +25,7 @@ const columns = [
     key: '7',
     render: (text, record) => (
       <span>
-        <Confirmation_delete id={record.id} />
+        {/* <Confirmation_delete id={record.id} /> */}
       </span>
     ),
   },
