@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Layout, Button, Typography, Card, Form, Input, Checkbox } from "antd";
 import { Link } from "react-router-dom";
+import logo from "../assets/images/logo.png";
 import logo1 from "../assets/images/logos-facebook.svg";
 import logo2 from "../assets/images/logo-apple.svg";
 import logo3 from "../assets/images/Google__G__Logo.svg.png";
@@ -18,8 +19,7 @@ export default class SignUp extends Component {
     return (
       <>
         <div className="layout-default ant-layout layout-sign-up">
-          {/* header */}
-          <Header />
+          
           <Content className="p-0">
             <div className="sign-up-header">
               <div className="content">
@@ -114,8 +114,7 @@ export default class SignUp extends Component {
               </p>
             </Card>
           </Content>
-          {/* footer */}
-          <Footer />
+          
         </div>
       </>
     );

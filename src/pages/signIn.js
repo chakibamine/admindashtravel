@@ -10,7 +10,7 @@ import {
   Switch,
 } from "antd";
 import { Link } from "react-router-dom";
-import signinbg from "../assets/images/img-signin.jpg";
+import logo from "../assets/images/logo.png";
 // import { AntdFooter } from "components/Layout/Footer";
 // import { AntdHeader } from "components/Layout/Header";
 import { Header, Footer } from "components/Layout";
@@ -33,7 +33,7 @@ export default class SignIn extends Component {
     return (
       <>
         <div className="layout-default layout-signin">
-          <Header btn="primary" />
+
           <Content className="signin">
             <Row gutter={[24, 0]} justify="space-around">
               <Col
@@ -41,8 +41,8 @@ export default class SignIn extends Component {
                 lg={{ span: 6, offset: 2 }}
                 md={{ span: 12 }}
               >
-                <Title className="mb-15">Sign In</Title>
-                <Title className="font-regular text-muted" level={5}>
+                <Title className="mb-15" style={{ fontFamily: 'Circular, sans-serif' }}>Sign In</Title>
+                <Title className="text-muted"  style={{ fontFamily: 'Circular, sans-serif' }} level={5}>
                   Enter your email and password to sign in
                 </Title>
                 <Form
@@ -78,21 +78,10 @@ export default class SignIn extends Component {
                   >
                     <Input placeholder="Password" />
                   </Form.Item>
-
-                  <Form.Item
-                    name="remember"
-                    className="aligin-center"
-                    valuePropName="checked"
-                  >
-                    <Switch defaultChecked onChange={onChange} />
-                    Remember me
-                  </Form.Item>
-
                   <Form.Item>
                     <Button
-                      type="primary"
                       htmlType="submit"
-                      style={{ width: "100%" }}
+                      style={{ width: "100%", backgroundColor:"#26baeb",color:"white" }}
                     >
                       SIGN IN
                     </Button>
@@ -112,12 +101,12 @@ export default class SignIn extends Component {
                 lg={{ span: 12 }}
                 md={{ span: 12 }}
               >
-                <img src={signinbg} alt="" />
+                <img src={logo} alt="" style={{ width: "60%", marginLeft: "100px", marginTop: "50px" }} />
               </Col>
             </Row>
           </Content>
           {/* Footer */}
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </>
     );

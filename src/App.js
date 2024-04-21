@@ -9,7 +9,6 @@ import Billing from "pages/Billing";
 import Profile from "pages/Profile";
 import { Users } from "pages/user/Users";
 import { Hotels } from "pages/hotel/Hotels";
-import { Test1 } from "pages/Test1";
 import { Destinations } from "pages/destination/Destinations";
 import { Restaurants } from "pages/restaurent/Restaurants";
 import { Transports } from "pages/transport/Transports";
@@ -18,9 +17,13 @@ import { Attractions } from "pages/attraction/Attractions";
 import { Offers } from "pages/offer/Offers";
 import { Reviews } from "pages/review/Reviews";
 
+import { Test1 } from "pages/Test1";
+
 export default function App() {
   return (
     <>
+
+
       <Routes>
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/sign-in" element={<SignIn />} />
@@ -41,7 +44,7 @@ export default function App() {
           <Route path="offer" element={<Offers />} />
           <Route path="review" element={<Reviews />} />
         </Route>
-          <Route path="/test" element={<Test1 />} />
+        <Route path="/test" element={<Test1 />} />
       </Routes>
     </>
   );

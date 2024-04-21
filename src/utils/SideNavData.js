@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { Menu } from "antd";
-import { HomeOutlined,CompassOutlined } from '@ant-design/icons';
-import { profileSVg, signInSvg, signUpSvg } from "./SignInUpData";
+import { profileSVg } from "./SignInUpData";
 import { IoMdRestaurant } from "react-icons/io";
 import { FaHotel,FaLocationDot,FaTaxi,FaRegStarHalfStroke } from "react-icons/fa6";
 import { BiSolidOffer } from "react-icons/bi";

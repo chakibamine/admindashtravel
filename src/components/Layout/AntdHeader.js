@@ -196,36 +196,9 @@ export default function AntdHeader({ name }) {
                   <Title level={5}>Navbar Fixed</Title>
                   <Switch onChange={(e) => dispatch(handleFixedNavbar(e))} />
                 </div>
-                <div className="ant-docment">
-                  <ButtonContainer>
-                    <Button type="black" size="large">
-                      FREE DOWNLOAD
-                    </Button>
-                    <Button size="large">VIEW DOCUMENTATION</Button>
-                  </ButtonContainer>
-                </div>
-                <div className="viewstar">
-                  <a href="#pablo">{<Iconify icon="akar-icons:star" />} Star</a>
-                  <a href="#pablo">190</a>
-                </div>
-                <div className="ant-thank">
-                  <Title level={5}>Thank you for sharing!</Title>
-                  <ButtonContainer>
-                    <Button type="black">
-                      {<Iconify icon="akar-icons:twitter-fill" />} TWEET
-                    </Button>
-                    <Button type="black">
-                      {<Iconify icon="eva:share-fill" />} SHARE
-                    </Button>
-                  </ButtonContainer>
-                </div>
               </div>
             </div>
           </Drawer>
-          <Link to="/sign-in" className="btn-sign-in">
-            {profileSVg}
-            <span>Sign in</span>
-          </Link>
           <Input
             className="header-search"
             placeholder="Type here..."

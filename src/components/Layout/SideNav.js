@@ -14,18 +14,6 @@ export default function SideNav({ color }) {
       </div>
       <hr />
       <MenuItem pathname={pathname} color={color} />
-      <div className="aside-footer">
-        <div className="footer-box" style={{ backgroundColor: color }}>
-          <span className="icon" style={{ color: "red" }}>
-            {dashboard(color)}
-          </span>
-          <h6>Need Help ?</h6>
-          <p>please check our docs</p>
-          <Button type="primary" className="ant-btn-sm ant-btn-block">
-            DOCUMENTATION
-          </Button>
-        </div>
-      </div>
     </>
   );
 }
