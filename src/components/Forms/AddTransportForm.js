@@ -4,10 +4,18 @@ import { AppstoreAddOutlined } from '@ant-design/icons';
 import { Formitem } from 'components/Form_items/Inputs';
 import { Select_destination } from 'components/Form_items/Inputs';
 import { Price_Input } from 'components/Form_items/Inputs';
+import { useDispatch } from 'react-redux';
+import { client } from 'utils/axios';
 const { Option } = Select;
 export const AddTransportForm = () => {
-    const onFinish = (values) => {
+    const dispatch = useDispatch()
+    const onFinish = async (values) => {
         console.log('Success:', values);
+
+        await client.post("transports/create/", values).then(res => {
+            dispatch({ type: "ADD_TRANSPOPRT", payload: res.data }); setModal1Open(false)
+        }
+        )
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -39,10 +47,10 @@ export const AddTransportForm = () => {
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
-                    <Formitem label="Type" name="type" required="true" message="Please input Transport Type!" input={<Input />} />
-                    <Formitem label="Provider" name="provider" required="true" message="Please input Transport Provider!" input={<Input />} />
                     <Select_destination label="Destination" name="destination" required="true" message="Please input Transport Destination!" />
-                    <Price_Input label="Price" name="price" required="true" message="Please input Transport Price!"/>
+                    <Formitem label="Mode" name="mode" required="true" message="Please input Transport Mode!" input={<Input />} />
+                    <Formitem label="Duration" name="duration" required="true" message="Please input Transport duration!" input={<Input />} />
+                    <Price_Input label="Cost" name="cost" required="true" message="Please input Transport Cost!"/>
                 </Form>
             </Modal>
         </>

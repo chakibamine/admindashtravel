@@ -10,6 +10,9 @@ export const Confirmation_delete = ({ id, path }) => {
     case '' : red = 'DELETE_USER'; break;
     case 'destinations/' : red = 'DELETE_DESTINATIONS'; break;
     case 'hotels/' : red = 'DELETE_HOTELS'; break;
+    case 'restaurants/' : red = 'DELETE_RESTAURANT'; break;
+    case 'transports/' : red = 'DELETE_TRANSPOPRT'; break;
+    case 'events/' : red = 'DELETE_EVENTS'; break;
     default: red = '';
   }
   const dispatch = useDispatch();

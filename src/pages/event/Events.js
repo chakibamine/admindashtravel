@@ -1,125 +1,66 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AddEventForm } from 'components/Forms/AddEventForm';
 import { Page } from 'components/Page/Page';
+import { Confirmation_delete } from 'assets/modal/Confirmation_delete';
+import { FaEdit } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { client } from 'utils/axios';
+import moment from 'moment';
 
 const columns = [
   {
     title: 'Name',
-    dataIndex: 'Name',
+    dataIndex: 'name',
     key: '1',
   },
   {
     title: 'Description',
-    dataIndex: 'Description',
+    dataIndex: 'description',
     key: '2',
     render: (text) => <span>{text.slice(0, 10)}{text.length > 25 ? "..." : ""}</span>,
   },
   {
     title: 'Location',
-    dataIndex: 'Location',
+    dataIndex: 'location',
     key: '4',
   },
   {
     title: 'Destination',
-    dataIndex: 'Destination',
+    dataIndex: 'destination',
     key: '5',
   },
   {
-    title: 'Date d\'ebut',
-    dataIndex: 'start_Date',
+    title: 'Date',
+    dataIndex: 'date',
     key: '6',
+    render: (text) => <span>{moment(text).format('DD/MM/YYYY')}</span>,
   },
-  {
-    title: 'Date fin',
-    dataIndex: 'end_Date',
-    key: '7',
-  },
-  
   {
     title: 'Action',
-    dataIndex: 'Action',
-    key: '8',
+    dataIndex: 'action',
+    key: '7',
+    render: (text, record) => (
+      <span>
+        <Confirmation_delete id={record.id} path={'events/'}/>
+        <FaEdit style={{marginLeft:'15px', color:'blue',fontSize:"20"}}/>
+      </span>
+    ),
   },
 ];
 
 
-const data = [{
-  "id": 1,
-  "Name": "Reinger and Sons",
-  "Location": "Room 1511",
-  "Description": "Athscl unsp Name bypass of left leg w ulcer oth prt low leg",
-  "Destination": "Taverny",
-  "Date": 4.5
-}, {
-  "id": 2,
-  "Name": "Pouros, Kessler and Metz",
-  "Location": "Suite 65",
-  "Description": "Other non-in-line roller-skating accident, initial encounter",
-  "Destination": "Banjar Bau Kawan",
-  "Date": 4.0
-}, {
-  "id": 3,
-  "Name": "O'Connell Group",
-  "Location": "Room 1292",
-  "Description": "Prsn outsd pk-up/van inj in nonclsn trnsp acc nontraf, subs",
-  "Destination": "Blois",
-  "Date": 4.3
-}, {
-  "id": 4,
-  "Name": "Batz Group",
-  "Location": "Suite 80",
-  "Description": "Underdosing of unsp agents aff the GI sys, init",
-  "Destination": "Watuagung",
-  "Date": 3.4
-}, {
-  "id": 5,
-  "Name": "Jacobi LLC",
-  "Location": "Suite 1",
-  "Description": "Toxic effect of venom of black widow spider, acc, init",
-  "Destination": "Dulangan",
-  "Date": 1.7
-}, {
-  "id": 6,
-  "Name": "Howell-Murray",
-  "Location": "Apt 2",
-  "Description": "Other fractures of lower leg",
-  "Destination": "San Antonio",
-  "Date": 1.4
-}, {
-  "id": 7,
-  "Name": "Swaniawski LLC",
-  "Location": "Apt 511",
-  "Description": "Major laceration of celiac artery, sequela",
-  "Destination": "Louveira",
-  "Date": 2.5
-}, {
-  "id": 8,
-  "Name": "Rolfson-Dickinson",
-  "Location": "Apt 335",
-  "Description": "Strain of unsp quadriceps muscle, fascia and tendon, sequela",
-  "Destination": "Kybartai",
-  "Date": 2.1
-}, {
-  "id": 9,
-  "Name": "Stokes-Ritchie",
-  "Location": "Apt 775",
-  "Description": "Sprain of carpal (joint)",
-  "Destination": "Qilin",
-  "Date": 4.1
-}, {
-  "id": 10,
-  "Name": "Fritsch Inc",
-  "Location": "16th Floor",
-  "Description": "Pressure ulcer of left upper back, stage 3",
-  "Destination": "Wanjiazhuang",
-  "Date": 1.6
-},]
+
 
 
 export const Events = () => {
+  const dispatch = useDispatch()
+  const { events } = useSelector(state => state.event)
+  useEffect(() => {
+    client.get("events/").then(res => dispatch({ type: "FETCH_EVENTS", payload: res.data }))
+  }, [])
   return (
     <>
-      <Page form={<AddEventForm /> } columns={columns} data={data}/>
+      <Page form={<AddEventForm /> } columns={columns} data={events}/>
     </> 
   );
 };
