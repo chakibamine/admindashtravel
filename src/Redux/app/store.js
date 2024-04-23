@@ -6,6 +6,7 @@ import HotelReducer from "Redux/Hotel/HotelReducer";
 import RestaurantReducer from "Redux/Restaurant/RestaurantReducer";
 import TransportReducer from "Redux/Transport/TransportReducer";
 import EventReducer from "Redux/Event/EventReducer";
+import OffreReducer from "Redux/Offer/OfferReducer";
 const rootReducer = combineReducers({
   mainSlice: mainReducer,
   user:UserReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   restaurant:RestaurantReducer,
   transport:TransportReducer,
   event:EventReducer,
+  offre:OffreReducer,
 });
 
 export const store = createStore(rootReducer);

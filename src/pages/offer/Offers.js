@@ -1,34 +1,56 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Page } from 'components/Page/Page';
 import { AddOfferForm } from 'components/Forms/AddOfferForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { client } from 'utils/axios';
+import moment from 'moment';
+import { Confirmation_delete } from 'assets/modal/Confirmation_delete';
+import { FaEdit } from 'react-icons/fa';
 
 const columns = [
   
   {
-    title: 'Description',
-    dataIndex: 'Description',
+    title: 'Title',
+    dataIndex: 'title',
     key: '1',
-    render: (text) => <span>{text.slice(0, 10)}{text.length > 25 ? "..." : ""}</span>,
   },
   {
-    title: 'Price',
-    dataIndex: 'Price',
+    title: 'Description',
+    dataIndex: 'description',
     key: '2',
   },
   {
-    title: 'Destination',
-    dataIndex: 'Destination',
+    title: 'Price',
+    dataIndex: 'price',
     key: '3',
   },
   {
-    title: 'DateValidity',
-    dataIndex: 'DateValidity',
+    title: 'Destination',
+    dataIndex: 'destination',
     key: '4',
+  },
+  {
+    title: 'DateValidity',
+    dataIndex: 'start_date',
+    key: '5',
+    render: (text) => <span>{moment(text).format('DD/MM/YYYY')}</span>,
+  },
+  {
+    title: 'DateValidity',
+    dataIndex: 'end_date',
+    key: '6',
+    render: (text) => <span>{moment(text).format('DD/MM/YYYY')}</span>,
   },
   {
     title: 'Action',
     dataIndex: 'Action',
-    key: '5',
+    key: '7',
+    render: (text, record) => (
+      <span>
+        <Confirmation_delete id={record.id} path={'offres/'}/>
+        <FaEdit style={{marginLeft:'15px', color:'blue',fontSize:"20"}}/>
+      </span>
+    ),
   },
 ];
 
@@ -107,9 +129,14 @@ const data = [{
 
 
 export const Offers = () => {
+  const dispatch = useDispatch()
+  const { offres } = useSelector(state => state.offre)
+  useEffect(() => {
+    client.get("offres/").then(res => dispatch({ type: "FETCH_OFFRES", payload: res.data }))
+  }, [])
   return (
     <>
-      <Page form={<AddOfferForm />} columns={columns} data={data} />
+      <Page form={<AddOfferForm />} columns={columns} data={offres} />
     </>
   );
 };

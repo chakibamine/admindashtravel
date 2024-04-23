@@ -6,14 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { client } from 'utils/axios';
 import { Badge } from 'antd'
 import { FaLocationDot } from "react-icons/fa6";
-import { FaEdit } from "react-icons/fa";
+import { UpdateUserForm } from 'components/Update_Forms/UpdateUserForm';
 
 const columns = [
-  {
-    title: 'ID',
-    dataIndex: 'id',
-    key: '1',
-  },
   {
     title: 'Firstname',
     dataIndex: 'firstname',
@@ -70,7 +65,7 @@ const columns = [
     render: (text, record) => (
       <span>
         <Confirmation_delete id={record.id} path={''}/>
-        <FaEdit style={{marginLeft:'15px', color:'blue',fontSize:"20"}}/>
+        <UpdateUserForm vals={record} />
       </span>
     ),
   },

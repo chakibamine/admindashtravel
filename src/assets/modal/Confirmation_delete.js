@@ -13,6 +13,7 @@ export const Confirmation_delete = ({ id, path }) => {
     case 'restaurants/' : red = 'DELETE_RESTAURANT'; break;
     case 'transports/' : red = 'DELETE_TRANSPOPRT'; break;
     case 'events/' : red = 'DELETE_EVENTS'; break;
+    case 'offres/' : red = 'DELETE_OFFRES'; break;
     default: red = '';
   }
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ export const Confirmation_delete = ({ id, path }) => {
   return (
     <>
       <Space>
-        <MdDelete style={{color:'red',fontSize:"20"}} onClick={confirm}>Delete</MdDelete>
+        <MdDelete style={{color:'red',fontSize:"20",cursor:"pointer"}} onClick={confirm}>Delete</MdDelete>
       </Space>
     </>
   );
