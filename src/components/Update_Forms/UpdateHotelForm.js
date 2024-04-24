@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
 import { Button, Form, Input, Modal, Rate } from 'antd';
-import { AppstoreAddOutlined } from '@ant-design/icons';
 import { Formitem, Select_destination, Image_Input } from 'components/Form_items/Inputs';
 import { useDispatch } from 'react-redux';
 import { client } from 'utils/axios';
+import { FaEdit } from 'react-icons/fa';
 const { TextArea } = Input;
-export const AddHotelForm = () => {
+export const UpdateHotelForm = ({ vals }) => {
 
     const dispatch = useDispatch()
     const onFinish = async (values) => {
         console.log('Success:', values);
-        await client.post("hotels/create/", values).then(res => {
-            dispatch({ type: "ADD_HOTELS", payload: res.data }); setModal1Open(false)
-        })
+        await client.put(`hotels/${vals.id}/update/`, values).then(res => {
+            dispatch({ type: "UPDATE_HOTEL", payload: { id: vals.id, updatedHotel: res.data } });
+            setModal1Open(false);
+        }).catch(error => {
+            console.log('Error:', error);
+        });
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -20,9 +23,9 @@ export const AddHotelForm = () => {
     const [modal1Open, setModal1Open] = useState(false);
     return (
         <>
-            <Button type='primary' style={{ float: 'right' }} onClick={() => setModal1Open(true)}><AppstoreAddOutlined />Add Hotel</Button>
+            <FaEdit onClick={() => setModal1Open(true)} style={{ marginLeft: '15px', color: 'blue', fontSize: "20", cursor: "pointer" }} />
             <Modal
-                title="Add Hotel"
+                title="Update Hotel"
                 style={{ top: 20 }}
                 visible={modal1Open}
                 onOk={() => setModal1Open(false)}
@@ -42,6 +45,7 @@ export const AddHotelForm = () => {
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
+                    initialValues={vals}
                 >
                     <Formitem label="Name" name="name" required="true" message="Please input hotel Name!" input={<Input />} />
                     <Formitem label="Location" name="location" required="true" message="Please input hotel Location!" input={<Input />} />

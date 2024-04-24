@@ -5,6 +5,7 @@ import { Page } from 'components/Page/Page';
 import { useDispatch, useSelector } from 'react-redux';
 import { client } from 'utils/axios';
 import { Confirmation_delete } from 'assets/modal/Confirmation_delete';
+import { UpdateRestaurantForm } from 'components/Update_Forms/UpdateRestaurantForm';
 
 
 const columns = [
@@ -27,7 +28,7 @@ const columns = [
     title: 'Rating',
     dataIndex: 'rating',
     key: '6',
-    render: (rating) => <Rate allowHalf defaultValue={rating} disabled />,
+    render: (rating) => <Rate allowHalf value={rating} />,
   },
   {
     title: 'Action',
@@ -36,6 +37,7 @@ const columns = [
     render: (text, record) => (
       <span>
         <Confirmation_delete id={record.id} path={'restaurants/'}/>
+        <UpdateRestaurantForm vals={record}/>
       </span>
     ),
   },
@@ -50,6 +52,7 @@ export const Restaurants = () => {
   useEffect(() => {
     client.get("restaurants/").then(res => dispatch({ type: "FETCH_RESTAURANT", payload: res.data }))
   }, [])
+  console.log(restaurants);
   return (
     <>
       <Page form={<AddRestaurantForm />} columns={columns} data={restaurants}/>

@@ -4,15 +4,17 @@ import { AppstoreAddOutlined } from '@ant-design/icons';
 import { Formitem, Select_destination, Image_Input } from 'components/Form_items/Inputs';
 import { client } from 'utils/axios';
 import { useDispatch } from 'react-redux';
+import { FaEdit } from 'react-icons/fa';
 
-export const AddRestaurantForm = () => {
+export const UpdateRestaurantForm = ({ vals }) => {
     const dispatch = useDispatch()
     const onFinish = async (values) => {
-        console.log('Success:', values);
-        await client.post("restaurants/create/", values).then(res => {
-            dispatch({ type: "ADD_RESTAURANT", payload: res.data }); setModal1Open(false)
-        }
-        )
+        await client.put(`restaurants/${vals.id}/`, values).then(res => {
+            dispatch({ type: "UPDATE_RESTAURANT", payload: { id: vals.id, updatedRestaurant: res.data } });
+            setModal1Open(false);
+        }).catch(error => {
+            console.log('Error:', error);
+        });
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -20,9 +22,9 @@ export const AddRestaurantForm = () => {
     const [modal1Open, setModal1Open] = useState(false);
     return (
         <>
-            <Button type='primary' style={{ float: 'right' }} onClick={() => setModal1Open(true)}><AppstoreAddOutlined />Add Restaurant</Button>
+            <FaEdit onClick={() => setModal1Open(true)} style={{marginLeft:'15px', color:'blue',fontSize:"20",cursor:"pointer"}}/>
             <Modal
-                title="Add Restaurant"
+                title="Update Restaurant"
                 style={{ top: 20 }}
                 visible={modal1Open}
                 onOk={() => setModal1Open(false)}
@@ -42,6 +44,7 @@ export const AddRestaurantForm = () => {
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
+                    initialValues={vals}
                 >
                     <Formitem label="Name" name="name" required="true" message="Please input Restaurant Name!" input={<Input />} />
                     <Formitem label="Cuisine" name="cuisine" required="true" message="Please input Restaurant Cuisine!" input={<Input />} />

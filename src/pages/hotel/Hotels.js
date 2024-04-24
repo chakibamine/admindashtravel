@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { client } from 'utils/axios';
 import { Confirmation_delete } from 'assets/modal/Confirmation_delete';
 import { FaEdit } from 'react-icons/fa';
+import { UpdateHotelForm } from 'components/Update_Forms/UpdateHotelForm';
 
 const columns = [
   {
@@ -46,8 +47,8 @@ const columns = [
     key: '7',
     render: (text, record) => (
       <span>
-        <Confirmation_delete id={record.id} path={'hotels/'}/>
-        <FaEdit style={{marginLeft:'15px', color:'blue',fontSize:"20",cursor:"pointer"}}/>  
+        <Confirmation_delete id={record.id} path={'hotels/'} />
+        <UpdateHotelForm vals={record} />
       </span>
     ),
   },

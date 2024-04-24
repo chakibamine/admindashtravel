@@ -1,22 +1,26 @@
 import React, { useState } from 'react'
 import { Button, Form, Input, Modal, DatePicker } from 'antd';
-import { AppstoreAddOutlined } from '@ant-design/icons';
 import { Formitem } from 'components/Form_items/Inputs';
 import { Select_destination } from 'components/Form_items/Inputs';
 import { useDispatch } from 'react-redux';
 import { client } from 'utils/axios';
-const { RangePicker } = DatePicker;
-export const AddEventForm = () => {
+import { FaEdit } from 'react-icons/fa';
+import moment from 'moment';
 
-    const { TextArea } = Input;
+const { RangePicker } = DatePicker;
+const { TextArea } = Input;
+export const UpdateEventForm = ({ vals }) => {
+    console.log(vals);
     const dispatch = useDispatch()
     const onFinish = async (values) => {
         console.log('Success:', values);
 
-        await client.post("events/create/", values).then(res => {
-            dispatch({ type: "ADD_EVENTS", payload: res.data }); setModal1Open(false)
-        }
-        )
+        await client.put(`events/${vals.id}/`, values).then(res => {
+            dispatch({ type: "UPDATE_EVENTS", payload: { id: vals.id, updatedEvent: res.data } });
+            setModal1Open(false);
+        }).catch(error => {
+            console.log('Error:', error);
+        });
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -24,9 +28,9 @@ export const AddEventForm = () => {
     const [modal1Open, setModal1Open] = useState(false);
     return (
         <>
-            <Button type='primary' style={{ float: 'right' }} onClick={() => setModal1Open(true)}><AppstoreAddOutlined />Add Event</Button>
+            <FaEdit onClick={() => setModal1Open(true)} style={{marginLeft:'15px', color:'blue',fontSize:"20",cursor:"pointer"}}/>
             <Modal
-                title="Add Event"
+                title="Update Event"
                 style={{ top: 20 }}
                 visible={modal1Open}
                 onOk={() => setModal1Open(false)}
@@ -46,6 +50,10 @@ export const AddEventForm = () => {
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
+                    initialValues={{
+                        ...vals,
+                        date: vals.date ? moment(vals.date) : null
+                    }}
                 >
                     <Formitem label="Name" name="name" required="true" message="Please input Event Name!" input={<Input />} />
                     <Formitem label="Description" name="description" required="true" message="Please input Event Description!" input={<TextArea rows={4} />} />

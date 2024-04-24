@@ -5,6 +5,7 @@ import { Confirmation_delete } from 'assets/modal/Confirmation_delete';
 import { useDispatch, useSelector } from 'react-redux';
 import { client } from 'utils/axios';
 import { FaEdit } from 'react-icons/fa';
+import { UpdateTransportForm } from 'components/Update_Forms/UpdateTransportForm';
 
 const columns = [
   {
@@ -33,8 +34,8 @@ const columns = [
     key: '5',
     render: (text, record) => (
       <span>
-        <Confirmation_delete id={record.id} path={'transports/'}/>
-        <FaEdit style={{marginLeft:'15px', color:'blue',fontSize:"20"}}/>
+        <Confirmation_delete id={record.id} path={'transports/'} />
+        <UpdateTransportForm vals={record} />
       </span>
     ),
   },
@@ -52,7 +53,7 @@ export const Transports = () => {
   }, [])
   return (
     <>
-      <Page form={<AddTransportForm />} columns={columns} data={transports}/>
+      <Page form={<AddTransportForm />} columns={columns} data={transports} />
     </>
   );
 };

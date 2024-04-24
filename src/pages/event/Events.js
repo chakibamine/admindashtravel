@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { AddEventForm } from 'components/Forms/AddEventForm';
 import { Page } from 'components/Page/Page';
 import { Confirmation_delete } from 'assets/modal/Confirmation_delete';
-import { FaEdit } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { client } from 'utils/axios';
 import moment from 'moment';
+import { UpdateEventForm } from 'components/Update_Forms/UpdateEventForm';
+
 
 const columns = [
   {
@@ -40,9 +41,10 @@ const columns = [
     dataIndex: 'action',
     key: '7',
     render: (text, record) => (
+      
       <span>
-        <Confirmation_delete id={record.id} path={'events/'}/>
-        <FaEdit style={{marginLeft:'15px', color:'blue',fontSize:"20"}}/>
+        <Confirmation_delete id={record.id} path={'events/'} />
+        <UpdateEventForm vals={record}/>
       </span>
     ),
   },
@@ -60,7 +62,7 @@ export const Events = () => {
   }, [])
   return (
     <>
-      <Page form={<AddEventForm /> } columns={columns} data={events}/>
-    </> 
+      <Page form={<AddEventForm />} columns={columns} data={events} />
+    </>
   );
 };
