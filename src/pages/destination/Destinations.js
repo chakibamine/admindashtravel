@@ -29,7 +29,7 @@ const columns = [
     title: 'Rating',
     dataIndex: 'rating',
     key: '6',
-    render: (rating) => <Rate allowHalf defaultValue={rating} disabled />,
+    render: (rating) => <Rate allowHalf value={rating} />,
   },
   {
     title: 'Action',

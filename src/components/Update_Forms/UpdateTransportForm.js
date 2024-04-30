@@ -14,7 +14,7 @@ export const UpdateTransportForm = ({ vals }) => {
     const onFinish = async (values) => {
         console.log('Success:', values);
         
-        await client.put(`transports/${vals.id}/`, values).then(res => {
+        await client.put(`transports/${vals.id}/update/`, values).then(res => {
             dispatch({ type: "UPDATE_TRANSPOPRT", payload: { id: vals.id, updatedTransport: res.data } });
             setModal1Open(false);
         }).catch(error => {

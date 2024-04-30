@@ -12,7 +12,7 @@ export const UpdateDestinationForm = ({ vals }) => {
 
     const onFinish = async (values) => {
         console.log('Success:', values);
-        await client.put(`destinations/${vals.id}/`, values)
+        await client.put(`destinations/${vals.id}/update/`, values)
             .then(res => {
                 dispatch({ type: "UPDATE_DESTINATIONS", payload: { id: vals.id, updatedDestination: res.data } });
                 setModal1Open(false);

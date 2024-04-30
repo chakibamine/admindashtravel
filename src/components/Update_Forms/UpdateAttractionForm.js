@@ -1,25 +1,35 @@
 import React, { useState } from 'react'
-import { Button, Form, Input, Modal} from 'antd';
-import { AppstoreAddOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Modal } from 'antd';
 import { Formitem } from 'components/Form_items/Inputs';
 import { Select_destination } from 'components/Form_items/Inputs';
 import { Image_Input } from 'components/Form_items/Inputs';
-export const AddAttractionForm = () => {
+import { useDispatch } from 'react-redux';
+import { client } from 'utils/axios';
+import { FaEdit } from 'react-icons/fa';
+export const UpdateAttractionForm = ({ vals }) => {
     const { TextArea } = Input;
-    const onFinish = (values) => {
+    const dispatch = useDispatch()
+    const onFinish = async (values) => {
         console.log('Success:', values);
+
+        await client.put(`attractions/${vals.id}/update/`, values).then(res => {
+            dispatch({ type: "UPDATE_ATTRACTION", payload: { id: vals.id, updatedAttraction: res.data } });
+            setModal1Open(false);
+        }).catch(error => {
+            console.log('Error:', error);
+        });
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-    
+
     const [modal1Open, setModal1Open] = useState(false);
-   
+
     return (
         <>
-            <Button type='primary' style={{ float: 'right' }} onClick={() => setModal1Open(true)}><AppstoreAddOutlined />Add Attraction</Button>
+            <FaEdit onClick={() => setModal1Open(true)} style={{ marginLeft: '15px', color: 'blue', fontSize: "20", cursor: "pointer" }} />
             <Modal
-                title="Add Attraction"
+                title="Update Attraction"
                 style={{ top: 20 }}
                 visible={modal1Open}
                 onOk={() => setModal1Open(false)}
@@ -39,11 +49,11 @@ export const AddAttractionForm = () => {
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
+                    initialValues={vals}
                 >
                     <Formitem label="Name" name="name" required="true" message="Please input Attraction Name!" input={<Input />} />
                     <Formitem label="Description" name="description" required="true" message="Please input Attraction Description!" input={<TextArea rows={4} />} />
                     <Select_destination />
-                    <Formitem label="Reviews" name="rseviews" required="true" message="Please input Attraction Reviews!" input={<Input />} />
                     <Image_Input />
                 </Form>
 

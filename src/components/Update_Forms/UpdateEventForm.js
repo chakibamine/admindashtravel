@@ -15,7 +15,7 @@ export const UpdateEventForm = ({ vals }) => {
     const onFinish = async (values) => {
         console.log('Success:', values);
 
-        await client.put(`events/${vals.id}/`, values).then(res => {
+        await client.put(`events/${vals.id}/update/`, values).then(res => {
             dispatch({ type: "UPDATE_EVENTS", payload: { id: vals.id, updatedEvent: res.data } });
             setModal1Open(false);
         }).catch(error => {

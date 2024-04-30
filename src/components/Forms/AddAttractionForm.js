@@ -4,10 +4,16 @@ import { AppstoreAddOutlined } from '@ant-design/icons';
 import { Formitem } from 'components/Form_items/Inputs';
 import { Select_destination } from 'components/Form_items/Inputs';
 import { Image_Input } from 'components/Form_items/Inputs';
+import { useDispatch } from 'react-redux';
+import { client } from 'utils/axios';
 export const AddAttractionForm = () => {
     const { TextArea } = Input;
-    const onFinish = (values) => {
+    const dispatch = useDispatch()
+    const onFinish = async (values) => {
         console.log('Success:', values);
+        await client.post("attractions/create/", values).then(res => {
+            dispatch({ type: "ADD_ATTRACTION", payload: res.data }); setModal1Open(false)
+        })
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -19,7 +25,7 @@ export const AddAttractionForm = () => {
         <>
             <Button type='primary' style={{ float: 'right' }} onClick={() => setModal1Open(true)}><AppstoreAddOutlined />Add Attraction</Button>
             <Modal
-                title="Add Attraction"
+                title="Update Attraction"
                 style={{ top: 20 }}
                 visible={modal1Open}
                 onOk={() => setModal1Open(false)}

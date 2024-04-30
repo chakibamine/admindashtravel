@@ -9,7 +9,7 @@ import { FaEdit } from 'react-icons/fa';
 export const UpdateRestaurantForm = ({ vals }) => {
     const dispatch = useDispatch()
     const onFinish = async (values) => {
-        await client.put(`restaurants/${vals.id}/`, values).then(res => {
+        await client.put(`restaurants/${vals.id}/update/`, values).then(res => {
             dispatch({ type: "UPDATE_RESTAURANT", payload: { id: vals.id, updatedRestaurant: res.data } });
             setModal1Open(false);
         }).catch(error => {

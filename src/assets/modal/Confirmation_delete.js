@@ -14,6 +14,8 @@ export const Confirmation_delete = ({ id, path }) => {
     case 'transports/' : red = 'DELETE_TRANSPOPRT'; break;
     case 'events/' : red = 'DELETE_EVENTS'; break;
     case 'offres/' : red = 'DELETE_OFFRES'; break;
+    case 'attractions/' : red = 'DELETE_ATTRACTION'; break;
+    case 'reviews/' : red = 'DELETE_REVIEWS'; break;
     default: red = '';
   }
   const dispatch = useDispatch();
@@ -21,7 +23,7 @@ export const Confirmation_delete = ({ id, path }) => {
 
   const handleDelete = async () => {
     // Implement delete logic here
-    await client.delete(`${path}${id}/`).then(res => {
+    await client.delete(`${path}${id}/delete/`).then(res => {
       dispatch({ type: red, payload: id }); 
     });
     setModalVisible(false); 
