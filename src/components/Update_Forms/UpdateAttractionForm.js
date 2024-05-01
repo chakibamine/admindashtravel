@@ -54,7 +54,6 @@ export const UpdateAttractionForm = ({ vals }) => {
                     <Formitem label="Name" name="name" required="true" message="Please input Attraction Name!" input={<Input />} />
                     <Formitem label="Description" name="description" required="true" message="Please input Attraction Description!" input={<TextArea rows={4} />} />
                     <Select_destination />
-                    <Image_Input />
                 </Form>
 
             </Modal>

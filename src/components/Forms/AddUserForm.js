@@ -6,7 +6,7 @@ import { client } from 'utils/axios';
 import { useDispatch } from 'react-redux';
 export const AddUserForm = () => {
     const [modal1Open, setModal1Open] = useState(false);
-
+    const [file,setFile]=useState("")
     const dispatch = useDispatch()
     const onFinish = async (values) => {
         console.log('Success:', values);
@@ -19,6 +19,13 @@ export const AddUserForm = () => {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
+
+    const handleFileSelect = (event) => {
+        setFile(event.target.files[0])
+      }
+
+      console.log(file);
     return (
         <>
             <Button type='primary' style={{ float: 'right' }} onClick={() => setModal1Open(true)}><UserAddOutlined />Add User</Button>
@@ -43,6 +50,7 @@ export const AddUserForm = () => {
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
+                    encType='multipart/form-data'
                 >
                     <Formitem label="Firstname" name="firstname" required="true" message="Please input your Firstname!" input={<Input />} />
                     <Formitem label="Lastname" name="lastname" required="true" message="Please input your Lastname!" input={<Input />} />
@@ -57,6 +65,8 @@ export const AddUserForm = () => {
                             </Radio.Group>
                         }
                     />
+
+                    {/* <input type='file' name='image' onChange={handleFileSelect} /> */}
                     <Image_Input />
                 </Form>
             </Modal>

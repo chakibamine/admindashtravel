@@ -42,6 +42,7 @@ export const AddRestaurantForm = () => {
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
+                    encType='multipart/form-data'
                 >
                     <Formitem label="Name" name="name" required="true" message="Please input Restaurant Name!" input={<Input />} />
                     <Formitem label="Cuisine" name="cuisine" required="true" message="Please input Restaurant Cuisine!" input={<Input />} />

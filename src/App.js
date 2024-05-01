@@ -17,9 +17,6 @@ import { Attractions } from "pages/attraction/Attractions";
 import { Offers } from "pages/offer/Offers";
 import { Reviews } from "pages/review/Reviews";
 
-import { Test1 } from "pages/Test1";
-import { Test2 } from "pages/Test2";
-
 export default function App() {
   return (
     <>
@@ -45,8 +42,6 @@ export default function App() {
           <Route path="offer" element={<Offers />} />
           <Route path="review" element={<Reviews />} />
         </Route>
-        <Route path="/test" element={<Test1 />} />
-        <Route path="/test1" element={<Test2 />} />
       </Routes>
     </>
   );

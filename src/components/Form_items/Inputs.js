@@ -75,21 +75,28 @@ export const Formitem = ({ label, name, required, message, input }) => {
     )
 }
 
-export const Image_Input = () => {
+export const Image_Input = ({ handleFileSelect ,name}) => {
     const normFile = (e) => {
         if (Array.isArray(e)) {
             return e;
         }
-        return e?.fileList;
+        return e && e.fileList;
     };
+
     return (
         <>
             <Form.Item
                 label="Image"
-                name="image"
+                name={name}
                 valuePropName="fileList"
-                getValueFromEvent={normFile}>
-                <Upload action="/upload.do" listType="picture-card">
+                getValueFromEvent={normFile}
+            >
+                <Upload
+                    listType="picture-card"
+                    onChange={(info) => {
+                        handleFileSelect(info.file.originFileObj);
+                    }}
+                >
                     <button
                         style={{
                             border: 0,
