@@ -52,7 +52,7 @@ export const Restaurants = () => {
   useEffect(() => {
     client.get("restaurants/").then(res => dispatch({ type: "FETCH_RESTAURANT", payload: res.data }))
   }, [])
-  console.log(restaurants);
+  
   return (
     <>
       <Page form={<AddRestaurantForm />} columns={columns} data={restaurants}/>

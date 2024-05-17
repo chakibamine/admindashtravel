@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Row, Col } from "antd";
 import ReactApexChart from "react-apexcharts";
 import { eChart } from "./config/eChart";
+import { client } from "utils/axios";
 const { Title, Paragraph } = Typography;
 const items = [
   {
@@ -33,7 +34,7 @@ export default function Echat() {
           type="bar"
         />
       </div>
-      <div className="chart-vistior">
+      {/* <div className="chart-vistior">
         <Title level={5}>Active Users</Title>
         <Paragraph className="lastweek">
           than last week <span className="bnb2">+30%</span>
@@ -52,7 +53,7 @@ export default function Echat() {
             </Col>
           ))}
         </Row>
-      </div>
+      </div> */}
     </>
   );
 }

@@ -10,6 +10,16 @@ import team1 from "../assets/images/team-1.jpg";
 import team2 from "../assets/images/team-2.jpg";
 import team3 from "../assets/images/team-3.jpg";
 import team4 from "../assets/images/team-4.jpg";
+import { FaHotel, FaUsers } from "react-icons/fa";
+import { IoMdRestaurant } from "react-icons/io";
+import { FaLocationDot } from "react-icons/fa6";
+import { useDispatch, useSelector } from "react-redux";
+import { client } from "./axios";
+import { useEffect } from "react";
+
+
+
+
 const profile = [
   <svg
     width="22"
@@ -96,33 +106,36 @@ const cart = [
     ></path>
   </svg>,
 ];
+
+
+
+
+
+
+
 const count = [
   {
-    today: "Today’s Sales",
-    title: "$53,000",
-    persent: "+30%",
-    icon: dollor,
+    today: "Users",
+    title: "7",
+    icon: <FaUsers />,
     bnb: "bnb2",
   },
   {
-    today: "Today’s Users",
-    title: "3,200",
-    persent: "+20%",
-    icon: profile,
+    today: "Destinations",
+    title: "7",
+    icon: <FaLocationDot />,
     bnb: "bnb2",
   },
   {
-    today: "New Clients",
-    title: "+1,200",
-    persent: "-20%",
-    icon: heart,
+    today: "Restaurent",
+    title: "7",
+    icon: <IoMdRestaurant />,
     bnb: "redtext",
   },
   {
-    today: "New Orders",
-    title: "$13,200",
-    persent: "10%",
-    icon: cart,
+    today: "Hotels",
+    title: "7",
+    icon: <FaHotel />,
     bnb: "bnb2",
   },
 ];

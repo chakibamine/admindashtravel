@@ -24,7 +24,7 @@ const SignIn = () => {
       const response = await client.post("login/", values);
       console.log("Login Successful: ", response.data);
       // Redirect user to dashboard or wherever you want
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       if (error.response.status === 400) {
         message.error("Invalid email or password");
@@ -41,7 +41,7 @@ const SignIn = () => {
 
   return (
     <>
-      <div className="layout-default layout-signin">
+      <div style={{marginTop:"50px"}} className="layout-default layout-signin">
         <Content className="signin">
           <Row gutter={[24, 0]} justify="space-around">
             <Col
@@ -94,12 +94,12 @@ const SignIn = () => {
                     SIGN IN
                   </Button>
                 </Form.Item>
-                <p className="font-semibold text-muted">
+                {/* <p className="font-semibold text-muted">
                   Don't have an account?{" "}
                   <Link to="/sign-up" className="text-dark font-bold">
                     Sign Up
                   </Link>
-                </p>
+                </p> */}
               </Form>
             </Col>
             <Col
@@ -109,7 +109,7 @@ const SignIn = () => {
               lg={{ span: 12 }}
               md={{ span: 12 }}
             >
-              <img src={logo} alt="" style={{ width: "60%", marginLeft: "100px", marginTop: "50px" }} />
+              <img src={logo} alt="" style={{ width: "60%", marginLeft: "100px"}} />
             </Col>
           </Row>
         </Content>

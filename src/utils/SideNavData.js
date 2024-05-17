@@ -43,7 +43,7 @@ const getItem = (label, path, icon, pathName, color) => {
       <span className="label">{label}</span>
     </NavLink>
   );
-};
+};  
 export const items = (pathname, color) => [
   {
     key: "1",

@@ -1,8 +1,10 @@
 export const eChart = {
+
+
   series: [
     {
-      name: "Sales",
-      data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
+      name: "Users",
+      data: [10, 50, 88, 100, 120, 180, 300, 450, 800],
       color: "#fff",
     },
   ],
